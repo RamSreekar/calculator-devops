@@ -1,9 +1,14 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Calculator {
 
+    private static final Logger logger = LogManager.getLogger(Calculator.class);
     private Scanner inputScanner;
 
     public Scanner getScanner() {
@@ -19,10 +24,14 @@ public class Calculator {
     }
 
     public double squareRoot(double operand) {
-        return Math.sqrt(operand);
+        try {
+            return Math.sqrt(operand);
+        } catch (InputMismatchException e) {
+            throw new InputMismatchException("Error: Input should only be of type Double");
+        }
     }
 
-    public double factorial(double operand) {
+    public double factorial(double operand) throws InputMismatchException {
         long longOperand = (long) operand;
         long result = 1;
         for(long i=2; i<=longOperand; i++) {
@@ -32,11 +41,11 @@ public class Calculator {
         return result;
     }
 
-    public double naturalLogarithm(double operand) {
+    public double naturalLogarithm(double operand) throws InputMismatchException {
         return Math.log(operand);
     }
 
-    public double power(double base, double exponent) {
+    public double power(double base, double exponent) throws InputMismatchException {
         return Math.pow(base, exponent);
     }
 
